@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using SistemaLeilao.Core;
+using SistemaLeilao.Core.ValueObject;
 
 namespace SistemaLeilao.Infra.ContextDb;
 
@@ -30,6 +31,7 @@ public class AppDbContext : DbContext
         
         modelBuilder.Entity<Usuario>().HasKey(x=>x.Id);
         modelBuilder.Entity<Usuario>().Property(x => x.Id).ValueGeneratedNever();
+        modelBuilder.Entity<Usuario>().OwnsOne(x => x.Email).Property(x => x.EmailAdress).HasColumnName("Email");
 
     }
 }

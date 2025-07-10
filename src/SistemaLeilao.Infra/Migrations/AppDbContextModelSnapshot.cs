@@ -47,11 +47,11 @@ namespace SistemaLeilao.Infra.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("BemId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<Guid>("LeilaoId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("UsuarioId")
                         .HasColumnType("uniqueidentifier");
@@ -61,7 +61,7 @@ namespace SistemaLeilao.Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BemId");
+                    b.HasIndex("LeilaoId");
 
                     b.HasIndex("UsuarioId");
 
@@ -106,10 +106,6 @@ namespace SistemaLeilao.Infra.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -121,9 +117,9 @@ namespace SistemaLeilao.Infra.Migrations
 
             modelBuilder.Entity("SistemaLeilao.Core.Lance", b =>
                 {
-                    b.HasOne("SistemaLeilao.Core.Leilao", "Bem")
+                    b.HasOne("SistemaLeilao.Core.Leilao", "Leilao")
                         .WithMany("Lances")
-                        .HasForeignKey("BemId")
+                        .HasForeignKey("LeilaoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -133,7 +129,7 @@ namespace SistemaLeilao.Infra.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Bem");
+                    b.Navigation("Leilao");
 
                     b.Navigation("Usuario");
                 });
@@ -147,6 +143,30 @@ namespace SistemaLeilao.Infra.Migrations
                         .IsRequired();
 
                     b.Navigation("Bem");
+                });
+
+            modelBuilder.Entity("SistemaLeilao.Core.Usuario", b =>
+                {
+                    b.OwnsOne("SistemaLeilao.Core.ValueObject.Email", "Email", b1 =>
+                        {
+                            b1.Property<Guid>("UsuarioId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<string>("EmailAdress")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("Email");
+
+                            b1.HasKey("UsuarioId");
+
+                            b1.ToTable("Usuarios");
+
+                            b1.WithOwner()
+                                .HasForeignKey("UsuarioId");
+                        });
+
+                    b.Navigation("Email")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("SistemaLeilao.Core.Leilao", b =>
