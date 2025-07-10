@@ -5,7 +5,7 @@ namespace SistemaLeilao.Core;
 public class Bem : BaseEntity
 {
     //orm
-    public Bem()
+    private Bem()
     {
         
     }

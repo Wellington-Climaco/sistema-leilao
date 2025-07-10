@@ -15,7 +15,7 @@ public class Leilao : BaseEntity
     public DateTime ArrematadoEm { get; private set; }
 
     //orm
-    public Leilao()
+    private Leilao()
     {
         
     }
