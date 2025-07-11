@@ -2,4 +2,4 @@ using SistemaLeilao.Core;
 
 namespace SistemaLeilao.Application.Response;
 
-public record UserResponse(string nome,string email);
+public record UserResponse(Guid Id,string Nome,string Email);

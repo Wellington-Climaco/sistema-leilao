@@ -1,5 +1,7 @@
+using FluentResults;
 using SistemaLeilao.Application.Interface;
 using SistemaLeilao.Application.Mapper;
+using SistemaLeilao.Application.Request;
 using SistemaLeilao.Application.Response;
 using SistemaLeilao.Core.Interface;
 using SistemaLeilao.Core.ValueObject;
@@ -15,21 +17,29 @@ public class UserService : IUserService
         _userRepository = userRepository;
     }
 
-    public Task CreateUser()
+    public async Task<Result<UserResponse>> CreateUser(CreateUserRequest request)
     {
-        throw new NotImplementedException();
+        var entity = request.MapToEntity();
+        var result = await _userRepository.RegisterUser(entity);
+        
+        if(result is null)
+            return Result.Fail("Falha ao registrar usuário");
+        
+        var response = result.MapToResponse();
+        
+        return Result.Ok(response);
     }
 
-    public async Task<UserResponse> GetUserByEmail(string email)
+    public async Task<Result<UserResponse>> GetUserByEmail(string email)
     {
         var emailAddress = new Email(email);
         var entity = await _userRepository.GetUserByEmail(emailAddress);
 
         if (entity is null)
-            throw new ArgumentNullException("usuário não encontrado.");
+            return Result.Fail("usuário não encontrado.");
 
         var response = entity.MapToResponse();
         
-        return response;
+        return Result.Ok(response);
     }
 }
