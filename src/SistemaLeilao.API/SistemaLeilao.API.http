@@ -1,4 +1,4 @@
-@SistemaLeilao.API_HostAddress = http://localhost:5178
+@SistemaLeilao.API_HostAddress = http://localhost:5031
 
 GET {{SistemaLeilao.API_HostAddress}}/weatherforecast/
 Accept: application/json

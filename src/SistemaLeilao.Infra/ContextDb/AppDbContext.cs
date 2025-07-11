@@ -28,6 +28,7 @@ public class AppDbContext : DbContext
         
         modelBuilder.Entity<Leilao>().HasKey(x=>x.Id);
         modelBuilder.Entity<Leilao>().Property(x => x.Id).ValueGeneratedNever();
+        modelBuilder.Entity<Leilao>().Property(x => x.Encerramento).HasColumnName("Encerramento");
         
         modelBuilder.Entity<Usuario>().HasKey(x=>x.Id);
         modelBuilder.Entity<Usuario>().Property(x => x.Id).ValueGeneratedNever();

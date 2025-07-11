@@ -19,7 +19,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\SistemaLeilao.Core\SistemaLeilao.Core.csproj" />
+      <ProjectReference Include="..\SistemaLeilao.Core\SistemaLeilao.Core.csproj" PrivateAssets="All" />
     </ItemGroup>
 
 </Project>

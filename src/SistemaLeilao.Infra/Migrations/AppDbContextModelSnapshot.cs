@@ -83,7 +83,8 @@ namespace SistemaLeilao.Infra.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("Encerramento")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2")
+                        .HasColumnName("Encerramento");
 
                     b.Property<bool>("Finalizado")
                         .HasColumnType("bit");

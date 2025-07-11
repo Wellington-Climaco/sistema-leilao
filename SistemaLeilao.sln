@@ -2,13 +2,13 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1A9D8F73-FC93-4009-BBFB-AC1885102F70}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaLeilao.API", "src\SistemaLeilao.API\SistemaLeilao.API.csproj", "{DEC51576-D993-46CD-8DDE-87D4EBE522F6}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaLeilao.Core", "src\SistemaLeilao.Core\SistemaLeilao.Core.csproj", "{1E6E90CD-1073-4FBF-B187-AF0FDD682518}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaLeilao.Infra", "src\SistemaLeilao.Infra\SistemaLeilao.Infra.csproj", "{C9FE8BFD-87C2-4A94-AE25-F055273CBAEC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaLeilao.Application", "src\SistemaLeilao.Application\SistemaLeilao.Application.csproj", "{77EB0666-32AE-4FCB-A043-8C1E4C29A4A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaLeilao.API", "src\SistemaLeilao.API\SistemaLeilao.API.csproj", "{D3633326-DE4C-49D7-8F8A-F048CF67E53D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -16,10 +16,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DEC51576-D993-46CD-8DDE-87D4EBE522F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DEC51576-D993-46CD-8DDE-87D4EBE522F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DEC51576-D993-46CD-8DDE-87D4EBE522F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DEC51576-D993-46CD-8DDE-87D4EBE522F6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1E6E90CD-1073-4FBF-B187-AF0FDD682518}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1E6E90CD-1073-4FBF-B187-AF0FDD682518}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E6E90CD-1073-4FBF-B187-AF0FDD682518}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -32,11 +28,15 @@ Global
 		{77EB0666-32AE-4FCB-A043-8C1E4C29A4A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77EB0666-32AE-4FCB-A043-8C1E4C29A4A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77EB0666-32AE-4FCB-A043-8C1E4C29A4A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3633326-DE4C-49D7-8F8A-F048CF67E53D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3633326-DE4C-49D7-8F8A-F048CF67E53D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3633326-DE4C-49D7-8F8A-F048CF67E53D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3633326-DE4C-49D7-8F8A-F048CF67E53D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{DEC51576-D993-46CD-8DDE-87D4EBE522F6} = {1A9D8F73-FC93-4009-BBFB-AC1885102F70}
 		{1E6E90CD-1073-4FBF-B187-AF0FDD682518} = {1A9D8F73-FC93-4009-BBFB-AC1885102F70}
 		{C9FE8BFD-87C2-4A94-AE25-F055273CBAEC} = {1A9D8F73-FC93-4009-BBFB-AC1885102F70}
 		{77EB0666-32AE-4FCB-A043-8C1E4C29A4A2} = {1A9D8F73-FC93-4009-BBFB-AC1885102F70}
+		{D3633326-DE4C-49D7-8F8A-F048CF67E53D} = {1A9D8F73-FC93-4009-BBFB-AC1885102F70}
 	EndGlobalSection
 EndGlobal
