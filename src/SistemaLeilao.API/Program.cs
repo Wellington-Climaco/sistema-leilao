@@ -1,3 +1,4 @@
+using SistemaLeilao.Application;
 using SistemaLeilao.Infra;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,7 +9,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddInfra(builder.Configuration);
+builder.Services
+    .AddInfra(builder.Configuration)
+    .AddApplication();
 
 var app = builder.Build();
 
