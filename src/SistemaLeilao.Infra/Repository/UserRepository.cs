@@ -6,7 +6,7 @@ using SistemaLeilao.Infra.ContextDb;
 
 namespace SistemaLeilao.Infra.Repository;
 
-public class UserRepository : IUserRepository
+internal class UserRepository : IUserRepository
 {
     private readonly AppDbContext _dbContext;
 

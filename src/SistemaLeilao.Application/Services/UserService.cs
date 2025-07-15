@@ -8,7 +8,7 @@ using SistemaLeilao.Core.ValueObject;
 
 namespace SistemaLeilao.Application.Services;
 
-public class UserService : IUserService
+internal class UserService : IUserService
 {
     private readonly IUserRepository _userRepository;
 
@@ -21,9 +21,6 @@ public class UserService : IUserService
     {
         var entity = request.MapToEntity();
         var result = await _userRepository.RegisterUser(entity);
-        
-        if(result is null)
-            return Result.Fail("Falha ao registrar usuário");
         
         var response = result.MapToResponse();
         
