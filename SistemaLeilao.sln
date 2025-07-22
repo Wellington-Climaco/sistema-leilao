@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaLeilao.Application",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaLeilao.API", "src\SistemaLeilao.API\SistemaLeilao.API.csproj", "{D3633326-DE4C-49D7-8F8A-F048CF67E53D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SistemaLeilao.Test", "SistemaLeilao.Test\SistemaLeilao.Test.csproj", "{B3777A39-69FE-4FFD-A2B6-32157B2290A9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{D3633326-DE4C-49D7-8F8A-F048CF67E53D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3633326-DE4C-49D7-8F8A-F048CF67E53D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3633326-DE4C-49D7-8F8A-F048CF67E53D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3777A39-69FE-4FFD-A2B6-32157B2290A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3777A39-69FE-4FFD-A2B6-32157B2290A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3777A39-69FE-4FFD-A2B6-32157B2290A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3777A39-69FE-4FFD-A2B6-32157B2290A9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{1E6E90CD-1073-4FBF-B187-AF0FDD682518} = {1A9D8F73-FC93-4009-BBFB-AC1885102F70}
