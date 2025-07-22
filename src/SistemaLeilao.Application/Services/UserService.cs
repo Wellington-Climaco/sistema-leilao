@@ -39,4 +39,15 @@ internal class UserService : IUserService
         
         return Result.Ok(response);
     }
+
+    public async Task<Result<UserResponse>> GetUserById(Guid id)
+    {
+        var result = await _userRepository.GetUserById(id);
+
+        if (result is null)
+            return Result.Fail("Usuário não encontrado");
+
+        var response = result.MapToResponse();
+        return Result.Ok(response);
+    }
 }

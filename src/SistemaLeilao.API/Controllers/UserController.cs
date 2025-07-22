@@ -40,4 +40,29 @@ public class UserController : ControllerBase
         
         return Created($"/user/{result.Value.Id}",result.Value);
     }
+    
+    [HttpGet]
+    [Route("/user/{email}")]
+    public async Task<IActionResult> GetUserByEmail([FromRoute] string email)
+    {
+            var result = await _userService.GetUserByEmail(email);
+
+            if (result.IsFailed)
+                return BadRequest(result.Errors);
+        
+            return Ok(result.Value);
+    }
+    
+    [HttpGet]
+    [Route("/user/{id}")]
+    public async Task<IActionResult> GetUserById([FromRoute] string id)
+    {
+        var idConverted = Guid.Parse(id);
+        var result = await _userService.GetUserById(idConverted);
+
+        if (result.IsFailed)
+            return BadRequest(result.Errors);
+        
+        return Ok(result.Value);
+    }
 }

@@ -28,4 +28,10 @@ internal class UserRepository : IUserRepository
        var result = await _dbContext.Usuarios.FirstOrDefaultAsync(x => x.Email.EmailAdress == email.EmailAdress);
        return result;
     }
+
+    public async Task<Usuario> GetUserById(Guid id)
+    {
+        var result = await _dbContext.Usuarios.FirstOrDefaultAsync(x => x.Id == id);
+        return result;
+    }
 }

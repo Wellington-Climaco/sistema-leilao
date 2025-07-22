@@ -8,4 +8,5 @@ public interface IUserService
 {
     Task<Result<UserResponse>> CreateUser(CreateUserRequest request);
     Task<Result<UserResponse>>  GetUserByEmail(string email);
+    Task<Result<UserResponse>>  GetUserById(Guid id);
 }
