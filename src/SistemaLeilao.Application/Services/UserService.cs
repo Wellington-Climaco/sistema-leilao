@@ -19,6 +19,11 @@ internal class UserService : IUserService
 
     public async Task<Result<UserResponse>> CreateUser(CreateUserRequest request)
     {
+        var alreadyExist = await GetUserByEmail(request.email);
+        
+        if (alreadyExist.IsSuccess)
+            return Result.Fail("Usuário com esse email já existe");
+        
         var entity = request.MapToEntity();
         var result = await _userRepository.RegisterUser(entity);
         
