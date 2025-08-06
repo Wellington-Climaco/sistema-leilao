@@ -6,7 +6,7 @@ using SistemaLeilao.Application.Request;
 namespace SistemaLeilao.API.Controllers;
 
 [ApiController]
-[Route("/user")]
+[Route("/v1")]
 public class UserController : ControllerBase
 {
     private readonly IUserService _userService;
@@ -19,7 +19,7 @@ public class UserController : ControllerBase
     }
     
     [HttpPost]
-    [Route("/create")]
+    [Route("user/create")]
     public async Task<IActionResult> CreateUser(CreateUserRequest request)
     {
         var validation = await _validator.ValidateAsync(request);
@@ -42,7 +42,7 @@ public class UserController : ControllerBase
     }
     
     [HttpGet]
-    [Route("/user/{email}")]
+    [Route("user/{email}")]
     public async Task<IActionResult> GetUserByEmail([FromRoute] string email)
     {
             var result = await _userService.GetUserByEmail(email);
@@ -54,7 +54,7 @@ public class UserController : ControllerBase
     }
     
     [HttpGet]
-    [Route("/user/{id}")]
+    [Route("user/{id}")]
     public async Task<IActionResult> GetUserById([FromRoute] string id)
     {
         var idConverted = Guid.Parse(id);

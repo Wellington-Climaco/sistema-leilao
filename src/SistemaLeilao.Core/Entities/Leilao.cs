@@ -1,4 +1,5 @@
 using SistemaLeilao.Core.Base;
+using SistemaLeilao.Core.Entities;
 
 namespace SistemaLeilao.Core;
 

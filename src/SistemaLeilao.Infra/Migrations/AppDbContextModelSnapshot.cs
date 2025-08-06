@@ -22,13 +22,17 @@ namespace SistemaLeilao.Infra.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("SistemaLeilao.Core.Bem", b =>
+            modelBuilder.Entity("SistemaLeilao.Core.Entities.Bem", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nome")
                         .IsRequired()
@@ -137,7 +141,7 @@ namespace SistemaLeilao.Infra.Migrations
 
             modelBuilder.Entity("SistemaLeilao.Core.Leilao", b =>
                 {
-                    b.HasOne("SistemaLeilao.Core.Bem", "Bem")
+                    b.HasOne("SistemaLeilao.Core.Entities.Bem", "Bem")
                         .WithMany()
                         .HasForeignKey("BemId")
                         .OnDelete(DeleteBehavior.Cascade)

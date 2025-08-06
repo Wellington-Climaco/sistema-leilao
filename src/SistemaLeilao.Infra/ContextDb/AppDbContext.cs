@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using SistemaLeilao.Core;
+using SistemaLeilao.Core.Entities;
 using SistemaLeilao.Core.ValueObject;
 
 namespace SistemaLeilao.Infra.ContextDb;
