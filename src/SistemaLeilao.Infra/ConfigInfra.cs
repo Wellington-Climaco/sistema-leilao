@@ -23,5 +23,8 @@ public static class ConfigInfra
     private static void ConfigDependencyInjection(IServiceCollection services)
     {
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IBemRepository, BemRepository>();
+        
+        
     }
 }

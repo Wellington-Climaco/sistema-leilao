@@ -17,6 +17,7 @@ public static class ConfigApplication
     private static void ConfigDependencyInjection(IServiceCollection services)
     {
         services.AddScoped<IUserService, UserService>();
+        services.AddScoped<IBemService, BemService>();
         services.AddValidatorsFromAssemblyContaining<CreateUserValidator>();
     }
 }
