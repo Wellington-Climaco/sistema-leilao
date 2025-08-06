@@ -1,6 +1,6 @@
 using SistemaLeilao.Core.Base;
 
-namespace SistemaLeilao.Core;
+namespace SistemaLeilao.Core.Entities;
 
 public class Bem : BaseEntity
 {
@@ -9,13 +9,15 @@ public class Bem : BaseEntity
     {
         
     }
-    public Bem(string nome, decimal valorMinimo)
+    public Bem(string nome, decimal valorMinimo,string descricao)
     {
         Nome = nome;
         ValorMinimo = valorMinimo;
+        Descricao = descricao;
     }
     
     public string Nome { get; private set; }
+    public string Descricao { get; set; }
     public decimal ValorMinimo { get; private set; }
 
     public void Arrematar(decimal valorLance)
