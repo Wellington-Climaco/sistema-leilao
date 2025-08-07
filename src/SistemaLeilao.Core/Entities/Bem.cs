@@ -11,6 +11,9 @@ public class Bem : BaseEntity
     }
     public Bem(string nome, decimal valorMinimo,string descricao)
     {
+        if (valorMinimo <= 0)
+            throw new ApplicationException("Valor minimo deve ser maior que zero");
+        
         Nome = nome;
         ValorMinimo = valorMinimo;
         Descricao = descricao;

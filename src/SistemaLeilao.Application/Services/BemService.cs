@@ -16,11 +16,23 @@ public class BemService : IBemService
         _bemRepository = bemRepository;   
     }
     
-    public async Task<Result<CreateBemResponse>> CreateBem(CreateBemRequest request)
+    public async Task<Result<BemResponse>> CreateBem(CreateBemRequest request)
     {
         var entity = request.MapToEntity();
 
         await _bemRepository.Save(entity);
+
+        var response = entity.MapToResponse();
+        
+        return Result.Ok(response);
+    }
+
+    public async Task<Result<BemResponse>> GetById(Guid id)
+    {
+        var entity = await _bemRepository.FindById(id);
+        
+        if (entity is null)
+            return Result.Fail("Bem não encontrado");
 
         var response = entity.MapToResponse();
         

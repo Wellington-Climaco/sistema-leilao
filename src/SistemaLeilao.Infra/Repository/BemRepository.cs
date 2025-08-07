@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using SistemaLeilao.Core;
 using SistemaLeilao.Core.Entities;
 using SistemaLeilao.Core.Interface;
@@ -17,5 +18,11 @@ public class BemRepository : IBemRepository
     {
         await _dbContext.AddAsync(entity);
         await _dbContext.SaveChangesAsync();
+    }
+
+    public async Task<Bem> FindById(Guid id)
+    {
+        var result = await _dbContext.Bens.FirstOrDefaultAsync(x => x.Id == id);
+        return result;
     }
 }

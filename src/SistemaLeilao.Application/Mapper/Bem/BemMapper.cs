@@ -7,5 +7,5 @@ public static class BemMapper
 {
     public static Core.Entities.Bem MapToEntity(this CreateBemRequest request) =>  new Core.Entities.Bem(request.Nome,request.ValorMinimo,request.Descricao);
     
-    public static CreateBemResponse MapToResponse(this Core.Entities.Bem entity) => new CreateBemResponse(entity.Id,entity.Nome,entity.Descricao,entity.ValorMinimo);
+    public static BemResponse MapToResponse(this Core.Entities.Bem entity) => new BemResponse(entity.Id,entity.Nome,entity.Descricao,entity.ValorMinimo);
 }

@@ -5,4 +5,5 @@ namespace SistemaLeilao.Core.Interface;
 public interface IBemRepository
 {
     Task Save(Bem entity);
+    Task<Bem> FindById(Guid id);
 }

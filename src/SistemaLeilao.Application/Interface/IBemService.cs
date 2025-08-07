@@ -6,5 +6,6 @@ namespace SistemaLeilao.Application.Interface;
 
 public interface IBemService
 {
-    Task<Result<CreateBemResponse>> CreateBem(CreateBemRequest request);
+    Task<Result<BemResponse>> CreateBem(CreateBemRequest request);
+    Task<Result<BemResponse>> GetById(Guid id);
 }
