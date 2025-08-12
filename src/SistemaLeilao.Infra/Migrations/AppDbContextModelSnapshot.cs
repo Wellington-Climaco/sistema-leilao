@@ -90,8 +90,12 @@ namespace SistemaLeilao.Infra.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("Encerramento");
 
-                    b.Property<bool>("Finalizado")
-                        .HasColumnType("bit");
+                    b.Property<TimeSpan>("IntervaloEntreLances")
+                        .HasColumnType("time");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("ValorArrematado")
                         .HasColumnType("decimal(18,2)");

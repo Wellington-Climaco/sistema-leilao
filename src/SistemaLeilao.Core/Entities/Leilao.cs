@@ -1,5 +1,6 @@
 using SistemaLeilao.Core.Base;
 using SistemaLeilao.Core.Entities;
+using SistemaLeilao.Core.Enum;
 
 namespace SistemaLeilao.Core;
 
@@ -9,11 +10,12 @@ public class Leilao : BaseEntity
     public Guid BemId { get; set; }
     
     public List<Lance> Lances { get; set; } = new();
-    public DateTime Encerramento { get; set; }   
-    
-    public decimal? ValorArrematado  { get; private set; }
-    public bool Finalizado { get; private set; }
+    public DateTime Encerramento { get; set; }
+
+    public decimal? ValorArrematado { get; private set; } = 0;
+    public StatusLeilao Status { get; private set; }
     public DateTime ArrematadoEm { get; private set; }
+    public TimeSpan IntervaloEntreLances { get; private set; } = TimeSpan.FromMinutes(3);
 
     //orm
     private Leilao()
@@ -25,6 +27,7 @@ public class Leilao : BaseEntity
     {
         Bem = bem;
         Encerramento = encerramento;
+        Status = StatusLeilao.Preparacao;
     }
 
     public void Arrematar(decimal valorLance)
@@ -32,7 +35,7 @@ public class Leilao : BaseEntity
         if(DateTime.Now < Encerramento)
             throw new InvalidOperationException("Horário do leilão ainda não chegou ao fim");
         
-        if (Finalizado)
+        if (Status == StatusLeilao.Finalizado)
             throw new InvalidOperationException("Leilão já finalizado");
         
         if (valorLance < Bem.ValorMinimo) 
@@ -40,18 +43,21 @@ public class Leilao : BaseEntity
         
         ValorArrematado = valorLance;
         ArrematadoEm = DateTime.Now;
-        Finalizado = true;
+        Status = StatusLeilao.Finalizado;
     }
 
     public void AdicionarLance(Lance lance)
     {
-        if (Finalizado) 
+        if (Status == StatusLeilao.Finalizado) 
             throw new InvalidOperationException("Leilão finalizado");
 
         var horarioLimite = Encerramento.AddMinutes(-15);
 
         if (DateTime.Now > horarioLimite)
             throw new InvalidOperationException("horário limite já atingido.");
+        
+        if (lance.Valor < Bem.ValorMinimo) 
+            throw new ArgumentException("Lance abaixo do valor mínimo");
         
         Lances.Add(lance);
     }

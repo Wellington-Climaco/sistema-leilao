@@ -2,6 +2,7 @@ using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using SistemaLeilao.Application.Interface;
 using SistemaLeilao.Application.Services;
+using SistemaLeilao.Application.UseCase;
 using SistemaLeilao.Application.Validators;
 
 namespace SistemaLeilao.Application;
@@ -18,6 +19,7 @@ public static class ConfigApplication
     {
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IBemService, BemService>();
+        services.AddScoped<ICreateLeilaoUseCase,CreateLeilaoUseCase>();
         services.AddValidatorsFromAssemblyContaining<CreateUserValidator>();
     }
 }

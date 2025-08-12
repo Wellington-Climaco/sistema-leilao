@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using SistemaLeilao.Core;
 using SistemaLeilao.Core.Entities;
+using SistemaLeilao.Core.Enum;
 using SistemaLeilao.Core.ValueObject;
 
 namespace SistemaLeilao.Infra.ContextDb;
@@ -30,6 +31,7 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<Leilao>().HasKey(x=>x.Id);
         modelBuilder.Entity<Leilao>().Property(x => x.Id).ValueGeneratedNever();
         modelBuilder.Entity<Leilao>().Property(x => x.Encerramento).HasColumnName("Encerramento");
+        modelBuilder.Entity<Leilao>().Property(x => x.Status).HasConversion(v => v.ToString(),v => (StatusLeilao)Enum.Parse(typeof(StatusLeilao), v));
         
         modelBuilder.Entity<Usuario>().HasKey(x=>x.Id);
         modelBuilder.Entity<Usuario>().Property(x => x.Id).ValueGeneratedNever();
