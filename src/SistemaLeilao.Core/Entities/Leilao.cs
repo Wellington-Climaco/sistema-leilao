@@ -11,10 +11,9 @@ public class Leilao : BaseEntity
     
     public List<Lance> Lances { get; set; } = new();
     public DateTime Encerramento { get; set; }
-
     public decimal? ValorArrematado { get; private set; } = 0;
     public StatusLeilao Status { get; private set; }
-    public DateTime ArrematadoEm { get; private set; }
+    public DateTime? ArrematadoEm { get; private set; } = null;
     public TimeSpan IntervaloEntreLances { get; private set; } = TimeSpan.FromMinutes(3);
 
     //orm

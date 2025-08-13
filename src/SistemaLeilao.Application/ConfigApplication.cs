@@ -20,6 +20,7 @@ public static class ConfigApplication
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IBemService, BemService>();
         services.AddScoped<ICreateLeilaoUseCase,CreateLeilaoUseCase>();
+        services.AddScoped<ISearchLeilaoUseCase,SearchLeilaoUseCase>();
         services.AddValidatorsFromAssemblyContaining<CreateUserValidator>();
     }
 }

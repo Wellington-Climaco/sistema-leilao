@@ -77,17 +77,17 @@ namespace SistemaLeilao.Infra.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("ArrematadoEm")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTime?>("ArrematadoEm")
+                        .HasColumnType("DATETIME");
 
                     b.Property<Guid>("BemId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("DATETIME");
 
                     b.Property<DateTime>("Encerramento")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("DATETIME")
                         .HasColumnName("Encerramento");
 
                     b.Property<TimeSpan>("IntervaloEntreLances")

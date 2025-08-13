@@ -1,5 +1,6 @@
 using FluentResults;
 using SistemaLeilao.Application.Interface;
+using SistemaLeilao.Application.Mapper;
 using SistemaLeilao.Application.Request.Leilao;
 using SistemaLeilao.Application.Response.Leilao;
 using SistemaLeilao.Core;
@@ -35,7 +36,7 @@ public class CreateLeilaoUseCase : ICreateLeilaoUseCase
 
         await _leilaoRepository.RegisterLeilao(entity);
 
-        var response = entity.MapToResponse();
+        var response = entity.MapCreateLeilaoToResponse();
         
         return Result.Ok(response);
     }
