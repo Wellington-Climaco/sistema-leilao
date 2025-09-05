@@ -25,4 +25,10 @@ public class LeilaoRepository : ILeilaoRepository
         var result = await _dbContext.Leiloes.Include(x=>x.Bem).FirstOrDefaultAsync(x=>x.Id == id);
         return result;
     }
+
+    public async Task InitializeLeilao(Leilao leilao)
+    {
+        _dbContext.Leiloes.Update(leilao);
+        await _dbContext.SaveChangesAsync();
+    }
 }

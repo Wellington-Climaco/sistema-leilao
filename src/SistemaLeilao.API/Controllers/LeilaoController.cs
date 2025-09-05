@@ -1,6 +1,7 @@
 using FluentResults;
 using Microsoft.AspNetCore.Mvc;
 using SistemaLeilao.Application.Interface;
+using SistemaLeilao.Application.Request.Lance;
 using SistemaLeilao.Application.Request.Leilao;
 using SistemaLeilao.Application.Response;
 using SistemaLeilao.Application.Response.Leilao;
@@ -13,11 +14,13 @@ public class LeilaoController : ControllerBase
 {
     private readonly ICreateLeilaoUseCase _createLeilaoUseCase;
     private readonly ISearchLeilaoUseCase _searchLeilaoUseCase;
+    private readonly IInitializeLeilaoUseCase _initializeLeilaoUseCase;
     
-    public LeilaoController(ICreateLeilaoUseCase createLeilaoUseCase, ISearchLeilaoUseCase searchLeilaoUseCase)
+    public LeilaoController(ICreateLeilaoUseCase createLeilaoUseCase, ISearchLeilaoUseCase searchLeilaoUseCase,IInitializeLeilaoUseCase initializeLeilaoUseCase)
     {
         _createLeilaoUseCase = createLeilaoUseCase;
         _searchLeilaoUseCase = searchLeilaoUseCase;
+        _initializeLeilaoUseCase = initializeLeilaoUseCase;
     }
     
     [HttpPost]
@@ -28,13 +31,13 @@ public class LeilaoController : ControllerBase
 
         if (result.IsFailed)
             return BadRequest(new DefaultResponse<CreateLeilaoResponse>(
-                StatusCodes.Status400BadRequest.ToString(),
+                StatusCodes.Status400BadRequest,
                     result.Errors.Select(x=>x.Message).ToList())
             );
         
         var response = new DefaultResponse<CreateLeilaoResponse>(
             result.Value, 
-            StatusCodes.Status201Created.ToString());
+            StatusCodes.Status201Created);
         
         return Created($"v1/leilao/{response.Data.Id}",response);
     }
@@ -49,23 +52,42 @@ public class LeilaoController : ControllerBase
             
             if (!converted)
                 return BadRequest(new DefaultResponse<LeilaoResponse>(
-                    StatusCodes.Status400BadRequest.ToString(),
+                    StatusCodes.Status400BadRequest,
                     "Id inválido"));
 
             var result = await _searchLeilaoUseCase.Executar(convertedId);
         
             if(result.IsFailed)
-                return NotFound(new DefaultResponse<LeilaoResponse>( StatusCodes.Status404NotFound.ToString(),
+                return NotFound(new DefaultResponse<LeilaoResponse>( StatusCodes.Status404NotFound,
                     result.Errors.Select(x => x.Message).ToList()));
         
-            var response = new DefaultResponse<LeilaoResponse>(result.Value, StatusCodes.Status200OK.ToString());
+            var response = new DefaultResponse<LeilaoResponse>(result.Value, StatusCodes.Status200OK);
             return Ok(response);
         }
         catch (Exception e)
         {
             // todo logging
-            var response = new DefaultResponse<LeilaoResponse>(StatusCodes.Status500InternalServerError.ToString(), "Internal server error");
+            var response = new DefaultResponse<LeilaoResponse>(StatusCodes.Status500InternalServerError, "Internal server error");
             return StatusCode(StatusCodes.Status500InternalServerError, response);
         }
     }
+
+    [HttpPatch]
+    [Route("leilao/{id}/inicializar")]
+    public async Task<IActionResult> InitializeLeilao([FromRoute] string id)
+    {
+        bool isConverted = Guid.TryParse(id, out var convertedId);
+
+        if (!isConverted)
+            return BadRequest(new DefaultResponse<string>(StatusCodes.Status400BadRequest, "Id inválido"));
+
+        var result = await _initializeLeilaoUseCase.Execute(convertedId);
+
+        if (result.IsFailed)
+            return BadRequest(new DefaultResponse<string>(StatusCodes.Status400BadRequest,result.Errors.Select(x=>x.Message)));
+
+        return Ok(new DefaultResponse<string>("Leilão iniciado com sucesso",StatusCodes.Status200OK));
+    }
+
+
 }

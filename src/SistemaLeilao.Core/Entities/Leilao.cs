@@ -29,6 +29,16 @@ public class Leilao : BaseEntity
         Status = StatusLeilao.Preparacao;
     }
 
+    public void MudarStaus(StatusLeilao status)
+    {
+        if (Status == status)
+            return;
+
+        if(DateTime.Now > Encerramento)
+            throw new InvalidOperationException("Impossível atualizar status de um leilão já finalizado.");
+
+        Status = status;
+    }
     public void Arrematar(decimal valorLance)
     {
         if(DateTime.Now < Encerramento)

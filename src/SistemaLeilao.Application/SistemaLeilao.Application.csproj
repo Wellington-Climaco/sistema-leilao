@@ -14,8 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SistemaLeilao.Core\SistemaLeilao.Core.csproj" PrivateAssets="All" />
-    <ProjectReference Include="..\SistemaLeilao.Infra\SistemaLeilao.Infra.csproj"
-      PrivateAssets="All" />
+    <ProjectReference Include="..\SistemaLeilao.Infra\SistemaLeilao.Infra.csproj" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>
