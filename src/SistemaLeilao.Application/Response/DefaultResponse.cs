@@ -1,28 +1,30 @@
+using System.Net;
+
 namespace SistemaLeilao.Application.Response;
 
 public class DefaultResponse<T>
 {
-    public DefaultResponse(T data, string statusCode)
+    public DefaultResponse(T data, int statusCode)
     {
         Data = data;
-        StatusCode = statusCode;
+        StatusCode = statusCode.ToString();
     }
 
-    public DefaultResponse(string statusCode, List<string> errors)
+    public DefaultResponse(int statusCode, IEnumerable<string> errors)
     {
-        StatusCode = statusCode;
+        StatusCode = statusCode.ToString();
         Errors = errors;
     }
 
-    public DefaultResponse(string statusCode, string error)
+    public DefaultResponse(int statusCode, string error)
     {
-        StatusCode = statusCode;
-        Errors.Add(error);
+        StatusCode = statusCode.ToString();
+        Errors = [error];
     }
     
   
     public string StatusCode { get; private set; }
     public T Data { get; private set; }
-    public List<string> Errors { get; private set; } = new();
+    public IEnumerable<string> Errors { get; private set; }
     
 }

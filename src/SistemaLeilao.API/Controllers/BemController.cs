@@ -29,17 +29,17 @@ public class BemController : ControllerBase
         if (!validation.IsValid)
         {
             var errors = validation.Errors.Select(x => x.ErrorMessage).ToList();
-            var defaultResponse = new DefaultResponse<string>(StatusCodes.Status400BadRequest.ToString(), errors);
+            var defaultResponse = new DefaultResponse<string>(StatusCodes.Status400BadRequest, errors);
             return BadRequest(defaultResponse);
         }
         
         var result = await _bemService.CreateBem(request);
 
         if (result.IsFailed)
-            return BadRequest(new DefaultResponse<string>( StatusCodes.Status400BadRequest.ToString(),
+            return BadRequest(new DefaultResponse<string>( StatusCodes.Status400BadRequest,
                 result.Errors.Select(x=>x.Message).ToList()));
         
-        var response = new DefaultResponse<BemResponse>(result.Value, StatusCodes.Status201Created.ToString());
+        var response = new DefaultResponse<BemResponse>(result.Value, StatusCodes.Status201Created);
         
         return Created($"v1/bem/create/{result.Value.Id}", response);
     }
@@ -53,9 +53,9 @@ public class BemController : ControllerBase
         var result = await _bemService.GetById(idConverted);
         
         if(result.IsFailed)
-            return BadRequest(new DefaultResponse<BemResponse> (StatusCodes.Status400BadRequest.ToString(),
+            return BadRequest(new DefaultResponse<BemResponse> (StatusCodes.Status400BadRequest,
                 result.Errors.Select(x=>x.Message).ToList()));
         
-        return Ok(new DefaultResponse<BemResponse>(result.Value, StatusCodes.Status200OK.ToString()));
+        return Ok(new DefaultResponse<BemResponse>(result.Value, StatusCodes.Status200OK));
     }
 }
