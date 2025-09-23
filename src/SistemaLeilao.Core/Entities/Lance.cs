@@ -9,7 +9,14 @@ public class Lance : BaseEntity
     {
         
     }
-    
+
+    public Lance(decimal valor, Guid leilaoId, Guid usuarioId)
+    {
+        Valor = valor;
+        LeilaoId = leilaoId;
+        UsuarioId = usuarioId;
+    }
+
     public decimal Valor { get; set; }
     
     public Guid LeilaoId { get; set; }

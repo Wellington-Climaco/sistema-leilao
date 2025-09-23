@@ -57,8 +57,8 @@ public class Leilao : BaseEntity
 
     public void AdicionarLance(Lance lance)
     {
-        if (Status == StatusLeilao.Finalizado) 
-            throw new InvalidOperationException("Leilão finalizado");
+        if (Status != StatusLeilao.Andamento) 
+            throw new InvalidOperationException("Leilão não está em andamento");
 
         var horarioLimite = Encerramento.AddMinutes(-15);
 

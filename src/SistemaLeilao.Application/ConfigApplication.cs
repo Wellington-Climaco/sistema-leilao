@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SistemaLeilao.Application.Interface;
 using SistemaLeilao.Application.Services;
 using SistemaLeilao.Application.UseCase;
+using SistemaLeilao.Application.UseCase.Lance;
 using SistemaLeilao.Application.Validators;
 
 namespace SistemaLeilao.Application;
@@ -22,6 +23,7 @@ public static class ConfigApplication
         services.AddScoped<ICreateLeilaoUseCase,CreateLeilaoUseCase>();
         services.AddScoped<ISearchLeilaoUseCase,SearchLeilaoUseCase>();
         services.AddScoped<IInitializeLeilaoUseCase,InitializeLeilaoUseCase>();
+        services.AddScoped<ICreateLanceUseCase, CreateLanceUseCase>();
         services.AddValidatorsFromAssemblyContaining<CreateUserValidator>();
     }
 }

@@ -25,6 +25,7 @@ public static class ConfigInfra
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IBemRepository, BemRepository>();
         services.AddScoped<ILeilaoRepository, LeilaoRepository>();
+        services.AddScoped<ILanceRepository, LanceRepository>();
         
         
     }

@@ -42,7 +42,7 @@ public class UserController : ControllerBase
     }
     
     [HttpGet]
-    [Route("user/{email}")]
+    [Route("user/email/{email}")]
     public async Task<IActionResult> GetUserByEmail([FromRoute] string email)
     {
             var result = await _userService.GetUserByEmail(email);
