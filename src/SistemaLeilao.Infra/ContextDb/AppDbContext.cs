@@ -32,7 +32,6 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<Leilao>().Property(x => x.Id).ValueGeneratedNever();
         modelBuilder.Entity<Leilao>().Property(x => x.Encerramento).HasColumnName("Encerramento");
         modelBuilder.Entity<Leilao>().Property(x => x.Status).HasConversion(v => v.ToString(),v => (StatusLeilao)Enum.Parse(typeof(StatusLeilao), v));
-        modelBuilder.Entity<Leilao>().Property(x => x.ArrematadoEm).HasColumnType("DATETIME");
         modelBuilder.Entity<Leilao>().Property(x => x.Encerramento).HasColumnType("DATETIME");
         modelBuilder.Entity<Leilao>().Property(x => x.CreatedAt).HasColumnType("DATETIME");
         

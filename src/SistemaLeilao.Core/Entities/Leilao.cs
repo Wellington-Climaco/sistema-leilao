@@ -13,7 +13,8 @@ public class Leilao : BaseEntity
     public DateTime Encerramento { get; set; }
     public decimal? ValorArrematado { get; private set; } = 0;
     public StatusLeilao Status { get; private set; }
-    public DateTime? ArrematadoEm { get; private set; } = null;
+    public Guid? VencedorId { get; set; } = null;
+    public Usuario? Vencedor { get; set; }
     public TimeSpan IntervaloEntreLances { get; private set; } = TimeSpan.FromMinutes(3);
 
     //orm
@@ -39,7 +40,7 @@ public class Leilao : BaseEntity
 
         Status = status;
     }
-    public void Arrematar(decimal valorLance)
+    public void Arrematar(decimal valorLance,Usuario vencedor)
     {
         if(DateTime.Now < Encerramento)
             throw new InvalidOperationException("Horário do leilão ainda não chegou ao fim");
@@ -51,7 +52,7 @@ public class Leilao : BaseEntity
             throw new ArgumentException("Lance abaixo do valor mínimo");
         
         ValorArrematado = valorLance;
-        ArrematadoEm = DateTime.Now;
+        VencedorId = vencedor.Id;
         Status = StatusLeilao.Finalizado;
     }
 

@@ -77,9 +77,6 @@ namespace SistemaLeilao.Infra.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("ArrematadoEm")
-                        .HasColumnType("DATETIME");
-
                     b.Property<Guid>("BemId")
                         .HasColumnType("uniqueidentifier");
 
@@ -100,9 +97,14 @@ namespace SistemaLeilao.Infra.Migrations
                     b.Property<decimal?>("ValorArrematado")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<Guid?>("VencedorId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.HasIndex("BemId");
+
+                    b.HasIndex("VencedorId");
 
                     b.ToTable("Leiloes");
                 });
@@ -151,7 +153,13 @@ namespace SistemaLeilao.Infra.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("SistemaLeilao.Core.Usuario", "Vencedor")
+                        .WithMany()
+                        .HasForeignKey("VencedorId");
+
                     b.Navigation("Bem");
+
+                    b.Navigation("Vencedor");
                 });
 
             modelBuilder.Entity("SistemaLeilao.Core.Usuario", b =>

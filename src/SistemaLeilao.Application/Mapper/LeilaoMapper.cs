@@ -16,6 +16,6 @@ public static class MapLeilaoResponse
     {
         var bemResponse = leilao.Bem.MapToResponse();
         return new LeilaoResponse(leilao.Id, leilao.Encerramento, leilao.ValorArrematado,
-            leilao.Status.ToString(), leilao.ArrematadoEm, leilao.IntervaloEntreLances,bemResponse);
+            leilao.Status.ToString(), leilao.VencedorId, leilao.IntervaloEntreLances,bemResponse);
     }
 }
