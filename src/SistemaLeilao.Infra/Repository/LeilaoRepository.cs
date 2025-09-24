@@ -31,4 +31,16 @@ public class LeilaoRepository : ILeilaoRepository
         _dbContext.Leiloes.Update(leilao);
         await _dbContext.SaveChangesAsync();
     }
+
+    public async Task<(IEnumerable<Leilao> leiloes, int total)> FindByPagination(int skip, int take)
+    {
+        var leiloes = await _dbContext.Leiloes.AsNoTracking().Where(x => x.Encerramento > DateTime.Now)
+            .Include(x=>x.Bem)
+            .Skip(skip)
+            .Take(take)
+            .ToListAsync();
+
+        int count = await _dbContext.Leiloes.AsNoTracking().Where(x => x.Encerramento > DateTime.Now).CountAsync();
+        return (leiloes,count);
+    }
 }

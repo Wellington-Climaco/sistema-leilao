@@ -15,14 +15,16 @@ public class LeilaoController : ControllerBase
     private readonly ICreateLeilaoUseCase _createLeilaoUseCase;
     private readonly ISearchLeilaoUseCase _searchLeilaoUseCase;
     private readonly IInitializeLeilaoUseCase _initializeLeilaoUseCase;
-    
-    public LeilaoController(ICreateLeilaoUseCase createLeilaoUseCase, ISearchLeilaoUseCase searchLeilaoUseCase,IInitializeLeilaoUseCase initializeLeilaoUseCase)
+    private readonly ISearchAllLeilaoUseCase _searchAllLeilaoUseCase;
+
+    public LeilaoController(ICreateLeilaoUseCase createLeilaoUseCase, ISearchLeilaoUseCase searchLeilaoUseCase, IInitializeLeilaoUseCase initializeLeilaoUseCase, ISearchAllLeilaoUseCase searchAllLeilaoUseCase)
     {
         _createLeilaoUseCase = createLeilaoUseCase;
         _searchLeilaoUseCase = searchLeilaoUseCase;
         _initializeLeilaoUseCase = initializeLeilaoUseCase;
+        _searchAllLeilaoUseCase = searchAllLeilaoUseCase;
     }
-    
+
     [HttpPost]
     [Route("leilao/create")]
     public async Task<IActionResult> CreateLeilao([FromBody] CreateLeilaoRequest request)
@@ -89,5 +91,16 @@ public class LeilaoController : ControllerBase
         return Ok(new DefaultResponse<string>("Leilão iniciado com sucesso",StatusCodes.Status200OK));
     }
 
+    [HttpGet]
+    [Route("leilao/")]
+    public async Task<IActionResult> FindLeilao([FromQuery] int skip = 0, [FromQuery] int take = 25)
+    {
+        var result = await _searchAllLeilaoUseCase.Executar(skip, take);
+
+        if (!result.IsSuccess)
+            return BadRequest(new DefaultResponse<string>(StatusCodes.Status400BadRequest, result.Errors.Select(x => x.Message)));
+
+        return Ok(new DefaultResponse<AllLeilaoResponse>(result.Value, StatusCodes.Status200OK));
+    }
 
 }
