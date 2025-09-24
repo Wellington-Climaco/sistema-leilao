@@ -42,8 +42,11 @@ internal class CreateLanceUseCase : ICreateLanceUseCase
 
             var melhorLance = await _lanceRepository.FindBetterLance(leilaoId);
 
+            if(request.UserId.Equals(melhorLance.UsuarioId.ToString(),StringComparison.InvariantCultureIgnoreCase))
+                return Result.Fail($"Você já possui o melhor lance, impossivel realizar outro");
+
             if (melhorLance != null && request.Valor < melhorLance.Valor + 10)
-                return Result.Fail($"Já existe um lance melhor com o seguinte valor: R$ {melhorLance.Valor} - diferença minima entre os lances deve ser de 10 reais");
+                return Result.Fail($"Já existe um lance melhor com o seguinte valor: R$ {melhorLance.Valor} - diferença minima entre os lances deve ser de 10 reais");           
 
             var lance = request.MapToEntity();
 
