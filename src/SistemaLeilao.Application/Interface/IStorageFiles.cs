@@ -1,8 +1,9 @@
 using FluentResults;
+using SistemaLeilao.Application.Request.Imagem;
 
 namespace SistemaLeilao.Application.Interface;
 
 public interface IStorageFiles
 {
-    Task<Result> Upload(Guid key, Stream stream,string contentType,string fileName);
+    Task<Result<IEnumerable<string>>> Upload(IEnumerable<UploadImagemRequest> request,Guid BemId);
 }

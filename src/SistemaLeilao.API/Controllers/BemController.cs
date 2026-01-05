@@ -22,7 +22,7 @@ public class BemController : ControllerBase
     
     [HttpPost]
     [Route("bem/create")]
-    public async Task<IActionResult> CreateBem([FromForm] CreateBemRequest request,IFormFile file)
+    public async Task<IActionResult> CreateBem([FromBody] CreateBemRequest request)
     {
         var validation = await _validator.ValidateAsync(request);
         if (!validation.IsValid)

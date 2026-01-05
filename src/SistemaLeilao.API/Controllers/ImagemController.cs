@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SistemaLeilao.Application.Interface;
+using SistemaLeilao.Application.Request.Imagem;
 using SistemaLeilao.Application.Response;
+using static System.Net.Mime.MediaTypeNames;
+using System.IO;
 
 namespace SistemaLeilao.API.Controllers
 {
@@ -21,19 +24,16 @@ namespace SistemaLeilao.API.Controllers
             if (files is null)
                 return BadRequest(new DefaultResponse<string>(StatusCodes.Status400BadRequest, "Nenhum arquivo enviado"));
 
-            foreach (var image in files)
-            {
-                if (image.Length == 0)
-                    continue;
-                
-                using var stream = image.OpenReadStream();
-                var upload = await _storageFiles.Upload(id, stream, image.ContentType,image.FileName);
-                if (upload.IsFailed)
-                    return BadRequest(new DefaultResponse<string>(StatusCodes.Status400BadRequest,
-                        upload.Errors.Select(x => x.Message).ToList()));
-            }
+            var imagens = files.Select(f => new UploadImagemRequest(f.FileName, f.ContentType, f.OpenReadStream()));
+            var upload = await _storageFiles.Upload(imagens,id);
 
-            return Ok();
+            if(upload.IsSuccess)
+                return Created($"/image/{id}",upload.Value);
+
+            if (upload.Errors.First().Message.Contains("invalido",StringComparison.OrdinalIgnoreCase))
+                return BadRequest(new DefaultResponse<string>(StatusCodes.Status400BadRequest,upload.Errors.Select(x => x.Message).ToList()));
+
+            return StatusCode(500);
         }
 
         [HttpGet]
