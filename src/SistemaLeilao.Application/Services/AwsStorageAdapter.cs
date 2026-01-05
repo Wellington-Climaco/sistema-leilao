@@ -6,6 +6,7 @@ using FluentResults;
 using Microsoft.Extensions.Configuration;
 using SistemaLeilao.Application.Interface;
 using SistemaLeilao.Application.Request.Imagem;
+using SistemaLeilao.Application.Response.Imagem;
 using SistemaLeilao.Core.Entities;
 using SistemaLeilao.Core.Interface;
 using static System.Net.Mime.MediaTypeNames;
@@ -81,5 +82,15 @@ public class AwsStorageAdapter : IStorageFiles
             Console.WriteLine(e.ToString());
             return Result.Fail(e.ToString());
         }
+    }
+
+    public async Task<Result<IEnumerable<ImagemResponse>>> GetImagesByBem(Guid bemId)
+    {
+        var result = await _imagemRepository.GetImagesByBemId(bemId);
+        if (result.Count == 0)
+            return Result.Fail("nao encontrado");
+
+        var response = result.Select(x => new ImagemResponse(x.Url));
+        return Result.Ok(response);
     }
 }

@@ -14,6 +14,12 @@ internal class ImagemRepository : IImagemRepository
         _dbContext = dbContext;
     }
 
+    public async Task<List<Imagem>> GetImagesByBemId(Guid bemId)
+    {
+        var imagens = await _dbContext.Imagens.AsNoTracking().Where(x => x.BemId == bemId).ToListAsync();
+        return imagens;
+    }
+
     public Task Save(Imagem imagem)
     {
         throw new NotImplementedException();

@@ -2,8 +2,6 @@
 using SistemaLeilao.Application.Interface;
 using SistemaLeilao.Application.Request.Imagem;
 using SistemaLeilao.Application.Response;
-using static System.Net.Mime.MediaTypeNames;
-using System.IO;
 
 namespace SistemaLeilao.API.Controllers
 {
@@ -38,9 +36,16 @@ namespace SistemaLeilao.API.Controllers
 
         [HttpGet]
         [Route("/image/{id:guid}")]
-        public async Task<IActionResult> GetImagesByBemId()
+        public async Task<IActionResult> GetImagesByBemId([FromRoute] Guid id)
         {
-            return Ok();
+            var result = await _storageFiles.GetImagesByBem(id);
+            if(result.IsSuccess)
+                return Ok(result.Value);
+
+            if(result.Errors.First().Message.Contains("nao encontrado",StringComparison.OrdinalIgnoreCase))
+                return NotFound(new DefaultResponse<string>(StatusCodes.Status404NotFound,result.Errors.First().Message));
+
+            return StatusCode(StatusCodes.Status500InternalServerError);
         }
     }
 }
