@@ -17,6 +17,7 @@ public class AppDbContext : DbContext
     public DbSet<Lance> Lances { get; set; }
     public DbSet<Leilao> Leiloes { get; set; }
     public DbSet<Usuario> Usuarios { get; set; }
+    public DbSet<Imagem> Imagens { get; set; }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -38,6 +39,10 @@ public class AppDbContext : DbContext
         modelBuilder.Entity<Usuario>().HasKey(x=>x.Id);
         modelBuilder.Entity<Usuario>().Property(x => x.Id).ValueGeneratedNever();
         modelBuilder.Entity<Usuario>().OwnsOne(x => x.Email).Property(x => x.EmailAdress).HasColumnName("Email");
+        
+        modelBuilder.Entity<Imagem>().HasKey(x=>x.Id);
+        modelBuilder.Entity<Imagem>().Property(x => x.Id).ValueGeneratedNever();
+        modelBuilder.Entity<Imagem>().Property(x => x.CreatedAt).HasColumnType("DATETIME");
 
     }
 }

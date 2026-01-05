@@ -46,6 +46,26 @@ namespace SistemaLeilao.Infra.Migrations
                     b.ToTable("Bens");
                 });
 
+            modelBuilder.Entity("SistemaLeilao.Core.Entities.Imagem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("BemId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("DATETIME");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Imagens");
+                });
+
             modelBuilder.Entity("SistemaLeilao.Core.Lance", b =>
                 {
                     b.Property<Guid>("Id")
