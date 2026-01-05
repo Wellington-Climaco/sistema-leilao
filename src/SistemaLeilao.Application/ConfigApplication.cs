@@ -25,6 +25,7 @@ public static class ConfigApplication
         services.AddScoped<IInitializeLeilaoUseCase,InitializeLeilaoUseCase>();
         services.AddScoped<ICreateLanceUseCase, CreateLanceUseCase>();
         services.AddScoped<ISearchAllLeilaoUseCase, SearchAllLeilaoUseCase>();
+        services.AddScoped<IStorageFiles, AwsStorageAdapter>();
         services.AddValidatorsFromAssemblyContaining<CreateUserValidator>();
     }
 }
