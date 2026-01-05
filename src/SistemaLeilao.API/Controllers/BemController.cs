@@ -14,7 +14,7 @@ public class BemController : ControllerBase
     private readonly IBemService _bemService;
     private readonly IValidator<CreateBemRequest> _validator;
 
-    public BemController(IBemService bemService, IValidator<CreateBemRequest> validator)
+    public BemController(IBemService bemService,IStorageFiles storageFiles, IValidator<CreateBemRequest> validator)
     {
         _bemService = bemService;
         _validator = validator;
@@ -22,17 +22,16 @@ public class BemController : ControllerBase
     
     [HttpPost]
     [Route("bem/create")]
-    public async Task<IActionResult> CreateBem(CreateBemRequest request)
+    public async Task<IActionResult> CreateBem([FromForm] CreateBemRequest request,IFormFile file)
     {
         var validation = await _validator.ValidateAsync(request);
-
         if (!validation.IsValid)
         {
             var errors = validation.Errors.Select(x => x.ErrorMessage).ToList();
             var defaultResponse = new DefaultResponse<string>(StatusCodes.Status400BadRequest, errors);
             return BadRequest(defaultResponse);
         }
-        
+            
         var result = await _bemService.CreateBem(request);
 
         if (result.IsFailed)
@@ -41,7 +40,7 @@ public class BemController : ControllerBase
         
         var response = new DefaultResponse<BemResponse>(result.Value, StatusCodes.Status201Created);
         
-        return Created($"v1/bem/create/{result.Value.Id}", response);
+        return Created($"v1/create/{result.Value.Id}", response);
     }
 
     [HttpGet]
